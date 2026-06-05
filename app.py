@@ -46,21 +46,18 @@ with c1:
     st.page_link(
         "pages/1_HOAI_Rechner.py",
         label="🏛️ HOAI Rechner öffnen",
-        icon="🏛️"
     )
 
 with c2:
     st.page_link(
         "pages/2_Projekte.py",
         label="📂 Projekte verwalten",
-        icon="📂"
     )
 
 with c3:
     st.page_link(
         "pages/3_Einstellungen.py",
         label="⚙️ Einstellungen",
-        icon="⚙️"
     )
 
 st.markdown("---")
