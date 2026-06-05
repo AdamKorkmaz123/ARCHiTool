@@ -35,7 +35,31 @@ st.markdown("""
     </p>
 </div>
 """, unsafe_allow_html=True)
+with st.sidebar:
 
+    st.title("🏛️ ARCHiTool")
+
+    st.markdown("---")
+
+    st.page_link(
+        "pages/1_HOAI_Rechner.py",
+        label="🏛️ HOAI Rechner"
+    )
+
+    st.page_link(
+        "pages/2_Projekte.py",
+        label="📂 Projekte"
+    )
+
+    st.page_link(
+        "pages/3_Einstellungen.py",
+        label="⚙️ Einstellungen"
+    )
+
+    st.page_link(
+        "pages/4_Login.py",
+        label="👤 Login"
+    )
 # ---------------------------------------------------
 # USER INFO
 # ---------------------------------------------------
