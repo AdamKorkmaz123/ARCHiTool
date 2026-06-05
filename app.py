@@ -44,21 +44,21 @@ c1, c2, c3 = st.columns(3)
 
 with c1:
     st.page_link(
-        "pages/1_🏛️_HOAI_Rechner.py",
+        "pages/1_HOAI_Rechner.py",
         label="🏛️ HOAI Rechner öffnen",
         icon="🏛️"
     )
 
 with c2:
     st.page_link(
-        "pages/2_📂_Projekte.py",
+        "pages/2_Projekte.py",
         label="📂 Projekte verwalten",
         icon="📂"
     )
 
 with c3:
     st.page_link(
-        "pages/3_⚙️_Einstellungen.py",
+        "pages/3_Einstellungen.py",
         label="⚙️ Einstellungen",
         icon="⚙️"
     )
