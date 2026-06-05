@@ -1,10 +1,19 @@
 from io import BytesIO
+import os
 import pandas as pd
 from docx import Document
+from docx.shared import Inches
 from reportlab.lib.pagesizes import A4
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
+
+
+def get_logo_path(meta):
+    logo_path = meta.get("Logo", "")
+    if logo_path and os.path.exists(logo_path):
+        return logo_path
+    return None
 
 
 def export_excel(meta, params, lph_rows, steps):
@@ -26,11 +35,16 @@ def export_word(meta, params, lph_rows, steps):
     output = BytesIO()
     doc = Document()
 
+    logo_path = get_logo_path(meta)
+    if logo_path:
+        doc.add_picture(logo_path, width=Inches(1.6))
+
     doc.add_heading("ARCHiTool Honorarangebot", level=1)
 
     doc.add_heading("Firmendaten", level=2)
     for key, value in meta.items():
-        doc.add_paragraph(f"{key}: {value}")
+        if key != "Logo":
+            doc.add_paragraph(f"{key}: {value}")
 
     doc.add_heading("HOAI Berechnungsgrundlagen", level=2)
     for key, value in params.items():
@@ -39,6 +53,7 @@ def export_word(meta, params, lph_rows, steps):
     doc.add_heading("Leistungsphasen", level=2)
     table = doc.add_table(rows=1, cols=3)
     table.style = "Table Grid"
+
     table.rows[0].cells[0].text = "Leistungsphase"
     table.rows[0].cells[1].text = "Prozent"
     table.rows[0].cells[2].text = "Honorar netto €"
@@ -49,7 +64,7 @@ def export_word(meta, params, lph_rows, steps):
         cells[1].text = f"{row['Prozent']}%"
         cells[2].text = f"{row['Honorar netto €']:,.2f} €"
 
-    doc.add_heading("Kademelige Kalkulation", level=2)
+    doc.add_heading("Kalkulation", level=2)
     for label, value in steps:
         doc.add_paragraph(f"{label}: {value:,.2f} €")
 
@@ -67,15 +82,22 @@ def export_pdf(meta, params, lph_rows, steps):
     styles = getSampleStyleSheet()
     elements = []
 
+    logo_path = get_logo_path(meta)
+    if logo_path:
+        elements.append(Image(logo_path, width=90, height=45))
+        elements.append(Spacer(1, 12))
+
     elements.append(Paragraph("ARCHiTool Honorarangebot", styles["Title"]))
     elements.append(Spacer(1, 12))
 
     elements.append(Paragraph("Firmendaten", styles["Heading2"]))
     for key, value in meta.items():
-        elements.append(Paragraph(f"<b>{key}:</b> {value}", styles["Normal"]))
+        if key != "Logo":
+            elements.append(Paragraph(f"<b>{key}:</b> {value}", styles["Normal"]))
 
     elements.append(Spacer(1, 12))
     elements.append(Paragraph("HOAI Berechnungsgrundlagen", styles["Heading2"]))
+
     for key, value in params.items():
         elements.append(Paragraph(f"<b>{key}:</b> {value}", styles["Normal"]))
 
@@ -96,6 +118,7 @@ def export_pdf(meta, params, lph_rows, steps):
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
         ("ALIGN", (1, 1), (-1, -1), "RIGHT"),
     ]))
+
     elements.append(table)
     elements.append(Spacer(1, 18))
 
@@ -110,6 +133,7 @@ def export_pdf(meta, params, lph_rows, steps):
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
         ("ALIGN", (1, 1), (-1, -1), "RIGHT"),
     ]))
+
     elements.append(table2)
 
     doc.build(elements)

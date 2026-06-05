@@ -1,26 +1,22 @@
 import sqlite3
 import json
-from datetime import datetime
 
-
-DB_NAME = "database/projects.db"
+DB_PATH = "database/projects.db"
 
 
 def init_db():
-    conn = sqlite3.connect(DB_NAME)
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS projects (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
         projektname TEXT,
         firma TEXT,
         bauherr TEXT,
-        ort TEXT,
         datum TEXT,
-        created_at TEXT,
-        updated_at TEXT,
-        data TEXT
+        json_data TEXT
     )
     """)
 
@@ -28,51 +24,50 @@ def init_db():
     conn.close()
 
 
-def save_project(projektname, firma, datum, data_dict):
-    conn = sqlite3.connect(DB_NAME)
+def save_project(user_id, projektname, firma, bauherr, datum, json_data):
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
-
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    meta = data_dict.get("meta", {})
-
-    json_data = json.dumps(data_dict, ensure_ascii=False)
 
     cur.execute("""
     INSERT INTO projects (
+        user_id,
         projektname,
         firma,
         bauherr,
-        ort,
         datum,
-        created_at,
-        updated_at,
-        data
+        json_data
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?)
     """, (
+        user_id,
         projektname,
         firma,
-        meta.get("Bauherr", ""),
-        meta.get("Ort", ""),
+        bauherr,
         datum,
-        now,
-        now,
-        json_data
+        json.dumps(json_data, ensure_ascii=False)
     ))
 
     conn.commit()
     conn.close()
 
 
-def load_projects():
-    conn = sqlite3.connect(DB_NAME)
+def load_projects(user_id=None):
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    cur.execute("""
-    SELECT id, projektname, firma, datum
-    FROM projects
-    ORDER BY id DESC
-    """)
+    if user_id:
+        cur.execute("""
+        SELECT id, projektname, firma, datum
+        FROM projects
+        WHERE user_id = ?
+        ORDER BY id DESC
+        """, (user_id,))
+    else:
+        cur.execute("""
+        SELECT id, projektname, firma, datum
+        FROM projects
+        ORDER BY id DESC
+        """)
 
     rows = cur.fetchall()
     conn.close()
@@ -80,15 +75,22 @@ def load_projects():
     return rows
 
 
-def load_project_data(project_id):
-    conn = sqlite3.connect(DB_NAME)
+def load_project_data(project_id, user_id=None):
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    cur.execute("""
-    SELECT data
-    FROM projects
-    WHERE id = ?
-    """, (project_id,))
+    if user_id:
+        cur.execute("""
+        SELECT json_data
+        FROM projects
+        WHERE id = ? AND user_id = ?
+        """, (project_id, user_id))
+    else:
+        cur.execute("""
+        SELECT json_data
+        FROM projects
+        WHERE id = ?
+        """, (project_id,))
 
     row = cur.fetchone()
     conn.close()
@@ -99,14 +101,20 @@ def load_project_data(project_id):
     return None
 
 
-def delete_project(project_id):
-    conn = sqlite3.connect(DB_NAME)
+def delete_project(project_id, user_id=None):
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    cur.execute("""
-    DELETE FROM projects
-    WHERE id = ?
-    """, (project_id,))
+    if user_id:
+        cur.execute("""
+        DELETE FROM projects
+        WHERE id = ? AND user_id = ?
+        """, (project_id, user_id))
+    else:
+        cur.execute("""
+        DELETE FROM projects
+        WHERE id = ?
+        """, (project_id,))
 
     conn.commit()
     conn.close()
