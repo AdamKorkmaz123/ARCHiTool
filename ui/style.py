@@ -3,45 +3,158 @@ import streamlit as st
 
 # =========================================================
 # ARCHiTool GLOBAL STYLE SYSTEM
-# Professional SaaS / AEC platform interface
+# Tüm tasarım ayarlarını aşağıdaki bölümden değiştirebilirsin.
 # =========================================================
 
 
 def apply_global_style():
-    primary = st.session_state.get("primary_color", "#1e3a8a")
+
+    # =====================================================
+    # 1) ANA RENKLER
+    # =====================================================
+
+    # Ana marka rengi
+    # Seçenekler:
+    # Mavi: "#1e3a8a", "#2563eb", "#0f172a"
+    # Kırmızı: "#8A1E20", "#b91c1c", "#dc2626"
+    # Yeşil: "#0f766e", "#166534", "#15803d"
+    # Siyah/Gri: "#111827", "#1f2937", "#374151"
+    DEFAULT_PRIMARY = "#1e3a8a"
+
+    # Açık tema renkleri
+    LIGHT_BG = "#f8fafc"          # seçenek: "#ffffff", "#f8fafc", "#f1f5f9", "#eef2ff"
+    LIGHT_BG_2 = "#ffffff"        # seçenek: "#ffffff", "#f8fafc", "#f1f5f9"
+    LIGHT_CARD = "#ffffff"        # seçenek: "#ffffff", "#f8fafc", "#f1f5f9"
+    LIGHT_TEXT = "#0f172a"        # seçenek: "#0f172a", "#111827", "#1f2937"
+    LIGHT_MUTED = "#64748b"       # seçenek: "#64748b", "#6b7280", "#475569"
+    LIGHT_BORDER = "#e2e8f0"      # seçenek: "#e2e8f0", "#d1d5db", "#cbd5e1"
+    LIGHT_SOFT = "#eef2ff"        # hover rengi seçenek: "#eef2ff", "#f1f5f9", "#e0f2fe"
+    LIGHT_INPUT = "#f1f5f9"
+
+    # Koyu tema renkleri
+    DARK_BG = "#020617"           # seçenek: "#020617", "#0f172a", "#111827"
+    DARK_BG_2 = "#0f172a"
+    DARK_CARD = "#0f172a"
+    DARK_TEXT = "#f8fafc"
+    DARK_MUTED = "#94a3b8"
+    DARK_BORDER = "#1e293b"
+    DARK_SOFT = "#111827"
+    DARK_INPUT = "#111827"
+
+    # Footer / Sidebar
+    SIDEBAR_BG_1 = "#0f172a"
+    SIDEBAR_BG_2 = "#020617"
+    FOOTER_BG = "#0f172a"
+    FOOTER_BG_2 = "#020617"
+
+    # Durum renkleri
+    SUCCESS_BG = "#dcfce7"
+    SUCCESS_TEXT = "#166534"
+    WARNING_BG = "#fef3c7"
+    WARNING_TEXT = "#92400e"
+    ONLINE_GREEN = "#22c55e"
+
+    # =====================================================
+    # 2) FONT AYARLARI
+    # =====================================================
+
+    # Font seçenekleri:
+    # "Inter", "Segoe UI", Arial, sans-serif
+    # "Arial", sans-serif
+    # "Helvetica", Arial, sans-serif
+    # "Roboto", "Segoe UI", sans-serif
+    FONT_FAMILY = '"Inter", "Segoe UI", Arial, sans-serif'
+
+    FONT_WEIGHT_NORMAL = "500"
+    FONT_WEIGHT_MEDIUM = "700"
+    FONT_WEIGHT_BOLD = "900"
+    FONT_WEIGHT_EXTRA = "950"
+
+    HERO_TITLE_SIZE = "62px"      # seçenek: "48px", "56px", "62px", "72px"
+    SECTION_TITLE_SIZE = "36px"   # seçenek: "28px", "32px", "36px", "42px"
+    CARD_TITLE_SIZE = "25px"      # seçenek: "21px", "23px", "25px", "28px"
+    BODY_TEXT_SIZE = "16px"
+    MENU_TEXT_SIZE = "14px"
+
+    # =====================================================
+    # 3) GEOMETRİ / BOYUTLAR
+    # =====================================================
+
+    PAGE_MAX_WIDTH = "1480px"     # seçenek: "1200px", "1320px", "1480px", "1600px"
+
+    TOPBAR_PADDING = "14px 22px"  # seçenek: "10px 18px", "14px 22px", "18px 28px"
+    TOPBAR_RADIUS = "24px"        # seçenek: "12px", "18px", "24px", "32px"
+    TOPBAR_MARGIN_BOTTOM = "30px"
+
+    LOGO_SIZE = "46px"            # seçenek: "38px", "46px", "54px"
+    LOGO_RADIUS = "15px"
+
+    HERO_PADDING = "78px 68px"    # seçenek: "56px 44px", "78px 68px", "96px 80px"
+    HERO_RADIUS = "42px"          # seçenek: "20px", "30px", "42px", "56px"
+    HERO_MARGIN_BOTTOM = "36px"
+
+    CARD_PADDING = "29px"         # seçenek: "20px", "24px", "29px", "36px"
+    CARD_RADIUS = "30px"          # seçenek: "16px", "22px", "30px", "40px"
+    CARD_MIN_HEIGHT = "245px"     # seçenek: "190px", "220px", "245px", "280px"
+    CARD_LEFT_BORDER = "7px"      # seçenek: "3px", "5px", "7px", "10px"
+
+    METRIC_RADIUS = "26px"
+    INPUT_RADIUS = "14px"
+    BUTTON_RADIUS = "15px"
+    FOOTER_RADIUS = "42px 42px 0 0"
+
+    # =====================================================
+    # 4) GÖLGE / EFEKT AYARLARI
+    # =====================================================
+
+    LIGHT_SHADOW = "rgba(15,23,42,0.10)"
+    DARK_SHADOW = "rgba(0,0,0,0.35)"
+
+    TOPBAR_SHADOW = "0 18px 45px"
+    CARD_SHADOW = "0 16px 42px"
+    CARD_HOVER_SHADOW = "0 30px 75px rgba(15,23,42,0.17)"
+    HERO_SHADOW = "0 32px 85px rgba(15,23,42,0.30)"
+    FOOTER_SHADOW = "0 -20px 60px rgba(15,23,42,0.18)"
+
+    HOVER_LIFT = "-7px"           # kart yukarı kalkma efekti
+    BUTTON_HOVER_LIFT = "-2px"
+
+    # =====================================================
+    # 5) AKTİF TEMA SEÇİMİ
+    # =====================================================
+
+    primary = st.session_state.get("primary_color", DEFAULT_PRIMARY)
     dark = st.session_state.get("dark_mode", False)
 
     if dark:
-        bg = "#020617"
-        bg_2 = "#0f172a"
-        card = "#0f172a"
-        card_2 = "#111827"
-        text = "#f8fafc"
-        muted = "#94a3b8"
-        border = "#1e293b"
-        soft = "#111827"
+        bg = DARK_BG
+        bg_2 = DARK_BG_2
+        card = DARK_CARD
+        text = DARK_TEXT
+        muted = DARK_MUTED
+        border = DARK_BORDER
+        soft = DARK_SOFT
         nav = "rgba(2, 6, 23, 0.94)"
-        input_bg = "#111827"
-        shadow = "rgba(0,0,0,0.35)"
+        input_bg = DARK_INPUT
+        shadow = DARK_SHADOW
     else:
-        bg = "#f8fafc"
-        bg_2 = "#ffffff"
-        card = "#ffffff"
-        card_2 = "#f8fafc"
-        text = "#0f172a"
-        muted = "#64748b"
-        border = "#e2e8f0"
-        soft = "#eef2ff"
+        bg = LIGHT_BG
+        bg_2 = LIGHT_BG_2
+        card = LIGHT_CARD
+        text = LIGHT_TEXT
+        muted = LIGHT_MUTED
+        border = LIGHT_BORDER
+        soft = LIGHT_SOFT
         nav = "rgba(255,255,255,0.94)"
-        input_bg = "#f1f5f9"
-        shadow = "rgba(15,23,42,0.10)"
+        input_bg = LIGHT_INPUT
+        shadow = LIGHT_SHADOW
+
+    # =====================================================
+    # CSS
+    # =====================================================
 
     st.markdown(f"""
     <style>
-
-    /* =====================================================
-       GLOBAL APP
-    ===================================================== */
 
     .stApp {{
         background:
@@ -49,11 +162,11 @@ def apply_global_style():
             radial-gradient(circle at top right, rgba(14,165,233,0.06), transparent 28%),
             linear-gradient(180deg, {bg} 0%, {bg_2} 100%);
         color: {text};
-        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        font-family: {FONT_FAMILY};
     }}
 
     .block-container {{
-        max-width: 1480px;
+        max-width: {PAGE_MAX_WIDTH};
         padding-top: 1rem;
         padding-bottom: 0;
     }}
@@ -72,7 +185,6 @@ def apply_global_style():
         margin: 2rem 0;
     }}
 
-    /* Hide default Streamlit footer/header noise */
     footer {{
         visibility: hidden;
     }}
@@ -81,124 +193,14 @@ def apply_global_style():
         visibility: hidden;
     }}
 
-    /* =====================================================
-       SIDEBAR
-    ===================================================== */
-
     section[data-testid="stSidebar"] {{
-        background:
-            linear-gradient(180deg, #0f172a 0%, #020617 100%);
+        background: linear-gradient(180deg, {SIDEBAR_BG_1} 0%, {SIDEBAR_BG_2} 100%);
         border-right: 1px solid rgba(255,255,255,0.08);
     }}
 
     section[data-testid="stSidebar"] * {{
         color: white !important;
     }}
-
-    .side-brand {{
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        margin-bottom: 30px;
-        padding-top: 8px;
-    }}
-
-    .side-logo {{
-        width: 46px;
-        height: 46px;
-        border-radius: 15px;
-        background: linear-gradient(135deg, #ffffff, #dbeafe);
-        color: #0f172a !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 950;
-        font-size: 25px;
-        box-shadow: 0 12px 30px rgba(255,255,255,0.12);
-    }}
-
-    .side-title {{
-        font-size: 23px;
-        font-weight: 950;
-        letter-spacing: -0.8px;
-    }}
-
-    .side-subtitle {{
-        font-size: 11px;
-        color: #94a3b8 !important;
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        font-weight: 800;
-    }}
-
-    .side-section-title {{
-        margin-top: 26px;
-        margin-bottom: 10px;
-        font-size: 12px;
-        color: #94a3b8 !important;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        font-weight: 950;
-    }}
-
-    .side-link {{
-        display: block;
-        padding: 12px 14px;
-        border-radius: 14px;
-        color: #e2e8f0 !important;
-        font-weight: 850;
-        margin-bottom: 6px;
-        transition: all 0.18s ease;
-    }}
-
-    .side-link:hover {{
-        background: rgba(255,255,255,0.11);
-        transform: translateX(3px);
-    }}
-
-    .side-status {{
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 16px;
-        padding: 14px;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        font-size: 14px;
-        font-weight: 850;
-    }}
-
-    .side-status span {{
-        width: 10px;
-        height: 10px;
-        background: #22c55e;
-        border-radius: 50%;
-        display: inline-block;
-        box-shadow: 0 0 0 4px rgba(34,197,94,0.15);
-    }}
-
-    .side-mini-card {{
-        margin-top: 14px;
-        background: rgba(255,255,255,0.07);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 16px;
-        padding: 14px;
-    }}
-
-    .side-mini-card strong {{
-        font-size: 13px;
-        color: #cbd5e1 !important;
-    }}
-
-    .side-mini-card p {{
-        margin: 5px 0 0 0;
-        color: white !important;
-        font-weight: 900;
-    }}
-
-    /* =====================================================
-       TOP NAVIGATION / HOVER DROPDOWN
-    ===================================================== */
 
     .arch-topbar {{
         position: sticky;
@@ -207,13 +209,13 @@ def apply_global_style():
         background: {nav};
         backdrop-filter: blur(18px);
         border: 1px solid {border};
-        border-radius: 24px;
-        padding: 14px 22px;
-        margin-bottom: 30px;
+        border-radius: {TOPBAR_RADIUS};
+        padding: {TOPBAR_PADDING};
+        margin-bottom: {TOPBAR_MARGIN_BOTTOM};
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 18px 45px {shadow};
+        box-shadow: {TOPBAR_SHADOW} {shadow};
     }}
 
     .arch-logo-link {{
@@ -227,22 +229,22 @@ def apply_global_style():
     }}
 
     .arch-logo-mark {{
-        width: 46px;
-        height: 46px;
-        border-radius: 15px;
+        width: {LOGO_SIZE};
+        height: {LOGO_SIZE};
+        border-radius: {LOGO_RADIUS};
         background: linear-gradient(135deg, {primary}, #0f172a);
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
         font-size: 25px;
         box-shadow: 0 12px 28px rgba(30,58,138,0.35);
     }}
 
     .arch-logo-title {{
         font-size: 24px;
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
         letter-spacing: -0.9px;
         color: {text};
     }}
@@ -250,7 +252,7 @@ def apply_global_style():
     .arch-logo-subtitle {{
         font-size: 11px;
         color: {muted};
-        font-weight: 800;
+        font-weight: {FONT_WEIGHT_MEDIUM};
         text-transform: uppercase;
         letter-spacing: 1.3px;
     }}
@@ -264,8 +266,8 @@ def apply_global_style():
     .arch-menu-item {{
         position: relative;
         padding: 13px 14px;
-        font-size: 14px;
-        font-weight: 900;
+        font-size: {MENU_TEXT_SIZE};
+        font-weight: {FONT_WEIGHT_BOLD};
         color: {text};
         border-radius: 14px;
         cursor: default;
@@ -314,7 +316,7 @@ def apply_global_style():
         padding: 12px 13px;
         border-radius: 12px;
         font-size: 14px;
-        font-weight: 800;
+        font-weight: {FONT_WEIGHT_MEDIUM};
         transition: all 0.18s ease;
     }}
 
@@ -331,29 +333,25 @@ def apply_global_style():
         padding: 11px 20px;
         border-radius: 999px;
         font-size: 14px;
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
         box-shadow: 0 12px 26px rgba(30,58,138,0.28);
         transition: all 0.18s ease;
     }}
 
     .arch-login-btn:hover {{
-        transform: translateY(-2px);
+        transform: translateY({BUTTON_HOVER_LIFT});
         box-shadow: 0 18px 34px rgba(30,58,138,0.36);
     }}
-
-    /* =====================================================
-       HERO
-    ===================================================== */
 
     .hero-platform {{
         background:
             linear-gradient(120deg, rgba(15,23,42,0.96), rgba(30,58,138,0.94)),
             radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 36%);
         color: white;
-        padding: 78px 68px;
-        border-radius: 42px;
-        box-shadow: 0 32px 85px rgba(15,23,42,0.30);
-        margin-bottom: 36px;
+        padding: {HERO_PADDING};
+        border-radius: {HERO_RADIUS};
+        box-shadow: {HERO_SHADOW};
+        margin-bottom: {HERO_MARGIN_BOTTOM};
         position: relative;
         overflow: hidden;
     }}
@@ -388,7 +386,7 @@ def apply_global_style():
         padding: 9px 15px;
         border-radius: 999px;
         font-size: 13px;
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
         letter-spacing: 1px;
         margin-bottom: 20px;
         position: relative;
@@ -397,7 +395,7 @@ def apply_global_style():
 
     .hero-platform h1 {{
         color: white;
-        font-size: 62px;
+        font-size: {HERO_TITLE_SIZE};
         max-width: 930px;
         line-height: 1.03;
         letter-spacing: -2px;
@@ -424,11 +422,12 @@ def apply_global_style():
         z-index: 2;
     }}
 
-    .hero-primary, .hero-secondary {{
+    .hero-primary,
+    .hero-secondary {{
         display: inline-block;
         padding: 14px 22px;
         border-radius: 16px;
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
         transition: all 0.18s ease;
     }}
 
@@ -448,13 +447,9 @@ def apply_global_style():
         transform: translateY(-3px);
     }}
 
-    /* =====================================================
-       SECTIONS
-    ===================================================== */
-
     .section-title {{
-        font-size: 36px;
-        font-weight: 950;
+        font-size: {SECTION_TITLE_SIZE};
+        font-weight: {FONT_WEIGHT_EXTRA};
         margin-top: 40px;
         margin-bottom: 10px;
         letter-spacing: -1px;
@@ -468,10 +463,6 @@ def apply_global_style():
         margin-bottom: 25px;
     }}
 
-    /* =====================================================
-       MODULE CARDS
-    ===================================================== */
-
     .module-card-link {{
         display: block;
     }}
@@ -479,12 +470,12 @@ def apply_global_style():
     .module-card {{
         background: {card};
         border: 1px solid {border};
-        border-left: 7px solid {primary};
-        border-radius: 30px;
-        padding: 29px;
-        min-height: 245px;
+        border-left: {CARD_LEFT_BORDER} solid {primary};
+        border-radius: {CARD_RADIUS};
+        padding: {CARD_PADDING};
+        min-height: {CARD_MIN_HEIGHT};
         margin-bottom: 22px;
-        box-shadow: 0 16px 42px {shadow};
+        box-shadow: {CARD_SHADOW} {shadow};
         transition: all 0.23s ease;
         position: relative;
         overflow: hidden;
@@ -502,8 +493,8 @@ def apply_global_style():
     }}
 
     .module-card:hover {{
-        transform: translateY(-7px);
-        box-shadow: 0 30px 75px rgba(15,23,42,0.17);
+        transform: translateY({HOVER_LIFT});
+        box-shadow: {CARD_HOVER_SHADOW};
     }}
 
     .module-card-top {{
@@ -519,10 +510,10 @@ def apply_global_style():
     }}
 
     .module-card h3 {{
-        font-size: 25px;
+        font-size: {CARD_TITLE_SIZE};
         margin-top: 18px;
         margin-bottom: 10px;
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
         color: {text};
         position: relative;
         z-index: 2;
@@ -539,51 +530,44 @@ def apply_global_style():
     .module-arrow {{
         margin-top: 18px;
         color: {primary};
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
         font-size: 14px;
         position: relative;
         z-index: 2;
     }}
 
-    .status-active, .status-soon {{
+    .status-active,
+    .status-soon {{
         display: inline-block;
         padding: 6px 12px;
         border-radius: 999px;
         font-size: 12px;
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
     }}
 
     .status-active {{
-        background: #dcfce7;
-        color: #166534;
+        background: {SUCCESS_BG};
+        color: {SUCCESS_TEXT};
     }}
 
     .status-soon {{
-        background: #fef3c7;
-        color: #92400e;
+        background: {WARNING_BG};
+        color: {WARNING_TEXT};
     }}
-
-    /* =====================================================
-       METRICS
-    ===================================================== */
 
     div[data-testid="stMetric"] {{
         background: {card};
         border: 1px solid {border};
-        border-left: 7px solid {primary};
+        border-left: {CARD_LEFT_BORDER} solid {primary};
         padding: 23px;
-        border-radius: 26px;
+        border-radius: {METRIC_RADIUS};
         box-shadow: 0 14px 36px {shadow};
     }}
 
     div[data-testid="stMetricValue"] {{
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
         letter-spacing: -0.7px;
     }}
-
-    /* =====================================================
-       FEATURE STRIP
-    ===================================================== */
 
     .feature-strip {{
         background: {card};
@@ -596,14 +580,14 @@ def apply_global_style():
 
     .feature-strip h3 {{
         font-size: 31px;
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
         margin-bottom: 10px;
     }}
 
     .feature-strip p {{
         color: {muted};
         line-height: 1.65;
-        font-size: 16px;
+        font-size: {BODY_TEXT_SIZE};
     }}
 
     .feature-list {{
@@ -618,13 +602,9 @@ def apply_global_style():
         border: 1px solid rgba(30,58,138,0.08);
         border-radius: 18px;
         padding: 16px;
-        font-weight: 900;
+        font-weight: {FONT_WEIGHT_BOLD};
         color: {text};
     }}
-
-    /* =====================================================
-       INFO PANEL / BANNER
-    ===================================================== */
 
     .info-panel {{
         background: {card};
@@ -651,7 +631,7 @@ def apply_global_style():
 
     .info-panel h3 {{
         margin: 0 0 8px 0;
-        font-weight: 950;
+        font-weight: {FONT_WEIGHT_EXTRA};
     }}
 
     .info-panel p {{
@@ -687,14 +667,10 @@ def apply_global_style():
         background: white;
         color: {primary} !important;
         padding: 13px 22px;
-        border-radius: 15px;
-        font-weight: 950;
+        border-radius: {BUTTON_RADIUS};
+        font-weight: {FONT_WEIGHT_EXTRA};
         white-space: nowrap;
     }}
-
-    /* =====================================================
-       STREAMLIT INPUTS / BUTTONS
-    ===================================================== */
 
     .stTextInput input,
     .stNumberInput input,
@@ -702,7 +678,7 @@ def apply_global_style():
     .stDateInput input,
     .stSelectbox div[data-baseweb="select"] {{
         background-color: {input_bg} !important;
-        border-radius: 14px !important;
+        border-radius: {INPUT_RADIUS} !important;
         border: 1px solid {border} !important;
     }}
 
@@ -710,14 +686,14 @@ def apply_global_style():
         background: {primary};
         color: white;
         border: none;
-        border-radius: 15px;
+        border-radius: {BUTTON_RADIUS};
         padding: 0.7rem 1.15rem;
-        font-weight: 900;
+        font-weight: {FONT_WEIGHT_BOLD};
         transition: all 0.18s ease;
     }}
 
     .stButton > button:hover {{
-        transform: translateY(-2px);
+        transform: translateY({BUTTON_HOVER_LIFT});
         box-shadow: 0 12px 24px rgba(30,58,138,0.28);
     }}
 
@@ -725,21 +701,17 @@ def apply_global_style():
         background: {primary};
         color: white;
         border: none;
-        border-radius: 15px;
-        font-weight: 900;
+        border-radius: {BUTTON_RADIUS};
+        font-weight: {FONT_WEIGHT_BOLD};
     }}
-
-    /* =====================================================
-       FOOTER
-    ===================================================== */
 
     .arch-footer {{
         margin-top: 76px;
-        background: #0f172a;
+        background: {FOOTER_BG};
         color: white;
-        border-radius: 42px 42px 0 0;
+        border-radius: {FOOTER_RADIUS};
         overflow: hidden;
-        box-shadow: 0 -20px 60px rgba(15,23,42,0.18);
+        box-shadow: {FOOTER_SHADOW};
     }}
 
     .footer-main {{
@@ -749,7 +721,8 @@ def apply_global_style():
         gap: 38px;
     }}
 
-    .footer-main h2, .footer-main h4 {{
+    .footer-main h2,
+    .footer-main h4 {{
         color: white;
         margin-bottom: 14px;
     }}
@@ -764,7 +737,7 @@ def apply_global_style():
         color: #cbd5e1 !important;
         margin-bottom: 9px;
         font-size: 14px;
-        font-weight: 750;
+        font-weight: {FONT_WEIGHT_MEDIUM};
     }}
 
     .footer-main a:hover {{
@@ -772,18 +745,14 @@ def apply_global_style():
     }}
 
     .footer-bottom {{
-        background: #020617;
+        background: {FOOTER_BG_2};
         color: #94a3b8;
         padding: 18px 54px;
         display: flex;
         justify-content: space-between;
         font-size: 13px;
-        font-weight: 800;
+        font-weight: {FONT_WEIGHT_MEDIUM};
     }}
-
-    /* =====================================================
-       RESPONSIVE
-    ===================================================== */
 
     @media (max-width: 1200px) {{
         .arch-menu {{
