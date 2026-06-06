@@ -98,43 +98,6 @@ def top_navigation():
     """, unsafe_allow_html=True)
 
 
-def sidebar_navigation():
-    st.sidebar.markdown("""
-    <div class="side-brand">
-        <div class="side-logo">A</div>
-        <div>
-            <div class="side-title">ARCHiTool</div>
-            <div class="side-subtitle">AEC Platform</div>
-        </div>
-    </div>
-
-    <div class="side-section-title">Navigation</div>
-
-    <a class="side-link" href="/">🏠 Dashboard</a>
-    <a class="side-link" href="/HOAI_Center">🏛️ HOAI Center</a>
-    <a class="side-link" href="/HOAI_Rechner">🧮 HOAI Rechner</a>
-    <a class="side-link" href="/Projektplanung">📅 Projektplanung</a>
-    <a class="side-link" href="/Ausschreibung_LV">📋 Ausschreibung / LV</a>
-    <a class="side-link" href="/Bauleitung">👷 Bauleitung</a>
-    <a class="side-link" href="/Kostenmanagement">💶 Kostenmanagement</a>
-    <a class="side-link" href="/Projekte">📂 Projekte</a>
-    <a class="side-link" href="/Einstellungen">⚙️ Einstellungen</a>
-    <a class="side-link" href="/Login">👤 Login</a>
-
-    <div class="side-section-title">Systemstatus</div>
-
-    <div class="side-status">
-        <span></span>
-        Online MVP
-    </div>
-
-    <div class="side-mini-card">
-        <strong>Aktives Modul</strong>
-        <p>HOAI Center</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-
 def hero_section(
     badge="AEC SOFTWARE · HOAI · PROJEKTPLANUNG · LV · BAULEITUNG",
     title="Die digitale Arbeitsplattform für moderne Architektur- und Ingenieurbüros",

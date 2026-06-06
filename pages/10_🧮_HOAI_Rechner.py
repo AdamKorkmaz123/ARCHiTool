@@ -4,7 +4,6 @@ from datetime import date, datetime
 from ui.style import apply_global_style
 from ui.components import (
     top_navigation,
-    sidebar_navigation,
     section_header,
     info_panel,
     premium_banner,
@@ -24,7 +23,6 @@ from database.database import (
 
 
 apply_global_style()
-sidebar_navigation()
 top_navigation()
 init_db()
 

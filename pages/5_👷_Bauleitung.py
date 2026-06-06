@@ -3,7 +3,6 @@ import streamlit as st
 from ui.style import apply_global_style
 from ui.components import (
     top_navigation,
-    sidebar_navigation,
     section_header,
     module_card,
     feature_strip,
@@ -12,8 +11,7 @@ from ui.components import (
     footer,
 )
 
-apply_global_style()
-sidebar_navigation()
+apply_global_style()()
 top_navigation()
 
 st.markdown("""

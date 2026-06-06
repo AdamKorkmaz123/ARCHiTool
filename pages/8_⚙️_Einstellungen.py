@@ -4,7 +4,6 @@ import streamlit as st
 from ui.style import apply_global_style
 from ui.components import (
     top_navigation,
-    sidebar_navigation,
     section_header,
     info_panel,
     premium_banner,
@@ -27,7 +26,6 @@ if user:
     st.session_state.primary_color = settings["primary_color"]
 
 apply_global_style()
-sidebar_navigation()
 top_navigation()
 
 st.markdown("""

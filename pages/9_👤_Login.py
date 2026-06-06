@@ -3,7 +3,6 @@ import streamlit as st
 from ui.style import apply_global_style
 from ui.components import (
     top_navigation,
-    sidebar_navigation,
     section_header,
     info_panel,
     premium_banner,
@@ -14,7 +13,6 @@ from auth.auth import init_auth_db, register_user, login_user
 
 
 apply_global_style()
-sidebar_navigation()
 top_navigation()
 init_auth_db()
 

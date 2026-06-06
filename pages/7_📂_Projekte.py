@@ -3,7 +3,6 @@ import streamlit as st
 from ui.style import apply_global_style
 from ui.components import (
     top_navigation,
-    sidebar_navigation,
     section_header,
     info_panel,
     premium_banner,
@@ -13,7 +12,6 @@ from ui.components import (
 from database.database import load_projects, load_project_data, delete_project
 
 apply_global_style()
-sidebar_navigation()
 top_navigation()
 
 st.markdown("""
