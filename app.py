@@ -14,24 +14,11 @@ init_db()
 
 user = st.session_state.get("user")
 
-# SIDEBAR
 with st.sidebar:
     st.title("🏛️ ARCHiTool")
     st.markdown("---")
+    st.info("Seiten bitte links über das Streamlit-Menü auswählen.")
 
-    if st.button("🏛️ HOAI Rechner"):
-        st.switch_page("pages/1_HOAI_Rechner.py")
-
-    if st.button("📂 Projekte"):
-        st.switch_page("pages/2_Projekte.py")
-
-    if st.button("⚙️ Einstellungen"):
-        st.switch_page("pages/3_Einstellungen.py")
-
-    if st.button("👤 Login"):
-        st.switch_page("pages/4_Login.py")
-
-# HERO
 st.markdown("""
 <div class="hero-card">
     <h1>🏛️ ARCHiTool</h1>
@@ -68,23 +55,23 @@ st.markdown("---")
 
 st.header("🚀 Schnellzugriff")
 
-c1, c2, c3, c4 = st.columns(4)
+st.info("Die Navigation erfolgt über das linke Seitenmenü.")
 
-with c1:
-    if st.button("🏛️ HOAI Rechner öffnen"):
-        st.switch_page("pages/1_HOAI_Rechner.py")
+st.markdown("""
+### Verfügbare Bereiche
 
-with c2:
-    if st.button("📂 Projekte verwalten"):
-        st.switch_page("pages/2_Projekte.py")
+- 🏛️ **HOAI Rechner**  
+  Professionelle HOAI-Honorarberechnung
 
-with c3:
-    if st.button("⚙️ Einstellungen öffnen"):
-        st.switch_page("pages/3_Einstellungen.py")
+- 📂 **Projekte**  
+  Gespeicherte Projekte anzeigen und verwalten
 
-with c4:
-    if st.button("👤 Login öffnen"):
-        st.switch_page("pages/4_Login.py")
+- ⚙️ **Einstellungen**  
+  Design, Farben und Firmenlogo anpassen
+
+- 👤 **Login**  
+  Benutzerkonto verwalten
+""")
 
 st.markdown("---")
 
