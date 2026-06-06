@@ -4,7 +4,6 @@ from ui.style import apply_global_style
 
 from ui.components import (
     top_navigation,
-    sidebar_navigation,
     hero_section,
     section_header,
     module_card,
@@ -18,10 +17,6 @@ from ui.components import (
 from database.database import init_db, load_projects
 
 
-# =========================================================
-# PAGE CONFIG
-# =========================================================
-
 st.set_page_config(
     page_title="ARCHiTool",
     page_icon="🏛️",
@@ -29,9 +24,6 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# =========================================================
-# INIT
-# =========================================================
 
 apply_global_style()
 init_db()
@@ -44,21 +36,9 @@ if user:
 else:
     project_count = 0
 
-# =========================================================
-# SIDEBAR
-# =========================================================
-
-sidebar_navigation()
-
-# =========================================================
-# TOP NAVIGATION
-# =========================================================
 
 top_navigation()
 
-# =========================================================
-# HERO SECTION
-# =========================================================
 
 hero_section(
     badge="ARCHITECTURE · HOAI · LV · BAULEITUNG · DIN276 · AI",
@@ -74,9 +54,6 @@ hero_section(
     secondary_link="/Projekte",
 )
 
-# =========================================================
-# USER INFO
-# =========================================================
 
 if user:
     st.success(f"Willkommen zurück, {user['name']}")
@@ -86,39 +63,21 @@ else:
         "werden erst nach Login gespeichert."
     )
 
-# =========================================================
-# METRICS
-# =========================================================
 
 c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    st.metric(
-        "Gespeicherte Projekte",
-        project_count
-    )
+    st.metric("Gespeicherte Projekte", project_count)
 
 with c2:
-    st.metric(
-        "Aktive Module",
-        "12"
-    )
+    st.metric("Aktive Module", "12")
 
 with c3:
-    st.metric(
-        "Systemstatus",
-        "Online"
-    )
+    st.metric("Systemstatus", "Online")
 
 with c4:
-    st.metric(
-        "Exportformate",
-        "PDF / DOCX / XLSX"
-    )
+    st.metric("Exportformate", "PDF / DOCX / XLSX")
 
-# =========================================================
-# FEATURE STRIP
-# =========================================================
 
 feature_strip(
     title="Alles in einer Architekturplattform",
@@ -135,22 +94,18 @@ feature_strip(
         "📂 Projektakte",
         "🤖 AI Assistent",
         "📄 Premium PDF",
-    ]
+    ],
 )
 
-# =========================================================
-# MAIN MODULES
-# =========================================================
 
 section_header(
     "Plattform Module",
-    "Modulare professionelle Werkzeuge für Architektur und Bauwesen."
+    "Modulare professionelle Werkzeuge für Architektur und Bauwesen.",
 )
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-
     module_card(
         status="Aktiv",
         icon="🏛️",
@@ -160,7 +115,7 @@ with col1:
         Wissensdatenbank, LPH Analyse und
         professioneller Angebotserstellung.
         """,
-        link="/HOAI_Center"
+        link="/HOAI_Center",
     )
 
     module_card(
@@ -172,11 +127,10 @@ with col1:
         Dokumentation und Projektakte
         in zentraler Umgebung.
         """,
-        link="/Projekte"
+        link="/Projekte",
     )
 
 with col2:
-
     module_card(
         status="Aktiv",
         icon="📅",
@@ -186,7 +140,7 @@ with col2:
         Meilensteine und Gantt-Strukturen
         für komplexe Bauprojekte.
         """,
-        link="/Projektplanung"
+        link="/Projektplanung",
     )
 
     module_card(
@@ -198,11 +152,10 @@ with col2:
         Fotodokumentation und
         Baustellenkoordination.
         """,
-        link="/Bauleitung"
+        link="/Bauleitung",
     )
 
 with col3:
-
     module_card(
         status="Coming Soon",
         icon="📋",
@@ -212,7 +165,7 @@ with col3:
         Positionen, Standardtexte
         und AI-basierte Leistungsverzeichnisse.
         """,
-        link="/Ausschreibung_LV"
+        link="/Ausschreibung_LV",
     )
 
     module_card(
@@ -224,16 +177,13 @@ with col3:
         Kostenschätzung, Kostenkontrolle
         und Budgetverwaltung.
         """,
-        link="/Kostenmanagement"
+        link="/Kostenmanagement",
     )
 
-# =========================================================
-# INFO SECTION
-# =========================================================
 
 section_header(
     "Professionelle Architekturplattform",
-    "ARCHiTool wurde für reale Architektur- und Ingenieurbüros entwickelt."
+    "ARCHiTool wurde für reale Architektur- und Ingenieurbüros entwickelt.",
 )
 
 info_panel(
@@ -243,7 +193,7 @@ info_panel(
     Neue Module können jederzeit integriert werden:
     AVA, CRM, LV, BIM, AI-Assistenten oder Kostenmanagement.
     """,
-    icon="🏗️"
+    icon="🏗️",
 )
 
 info_panel(
@@ -252,7 +202,7 @@ info_panel(
     Hochwertige PDF-, Word- und Excel-Dokumente
     mit Firmenbranding, Logos und professionellen Layouts.
     """,
-    icon="📄"
+    icon="📄",
 )
 
 info_panel(
@@ -262,12 +212,9 @@ info_panel(
     für Cloud-Datenbanken, Teamverwaltung,
     APIs und zukünftige AI-Integrationen.
     """,
-    icon="🚀"
+    icon="🚀",
 )
 
-# =========================================================
-# PREMIUM BANNER
-# =========================================================
 
 premium_banner(
     title="ARCHiTool Professional Platform",
@@ -279,27 +226,22 @@ premium_banner(
     button_link="/HOAI_Center",
 )
 
-# =========================================================
-# ROADMAP
-# =========================================================
 
 section_header(
     "Produkt Roadmap",
-    "Die Plattform wird kontinuierlich erweitert."
+    "Die Plattform wird kontinuierlich erweitert.",
 )
 
 roadmap_columns()
 
-# =========================================================
-# SYSTEM OVERVIEW
-# =========================================================
 
 section_header(
     "Technologie & Plattform",
-    "Professionelle SaaS Architektur für moderne AEC Workflows."
+    "Professionelle SaaS Architektur für moderne AEC Workflows.",
 )
 
-st.markdown("""
+st.markdown(
+    """
 <div class="main-card">
 
 ### Plattformstruktur
@@ -316,10 +258,9 @@ st.markdown("""
 - Future BIM Integration
 
 </div>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
-# =========================================================
-# FOOTER
-# =========================================================
 
 footer()

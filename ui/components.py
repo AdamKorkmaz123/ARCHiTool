@@ -1,16 +1,14 @@
 import streamlit as st
+from textwrap import dedent
 
 
-# =========================================================
-# ARCHiTool UI COMPONENTS
-# Professional reusable UI blocks for the platform
-# =========================================================
+def html(code: str):
+    st.markdown(dedent(code).strip(), unsafe_allow_html=True)
 
 
 def top_navigation():
-    st.markdown("""
+    html("""
     <div class="arch-topbar">
-
         <a href="/" class="arch-logo-link">
             <div class="arch-logo">
                 <div class="arch-logo-mark">A</div>
@@ -22,7 +20,6 @@ def top_navigation():
         </a>
 
         <div class="arch-menu">
-
             <div class="arch-menu-item">
                 Plattform
                 <div class="arch-dropdown mega-small">
@@ -87,15 +84,13 @@ def top_navigation():
                     <a href="/Kostenmanagement">📑 Kostenfeststellung</a>
                 </div>
             </div>
-
         </div>
 
         <div class="arch-top-actions">
             <a href="/Login" class="arch-login-btn">Login</a>
         </div>
-
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
 
 def hero_section(
@@ -107,7 +102,7 @@ def hero_section(
     secondary_label="📋 Plattform entdecken",
     secondary_link="/Dashboard",
 ):
-    st.markdown(f"""
+    html(f"""
     <div class="hero-platform">
         <div class="hero-badge">{badge}</div>
         <h1>{title}</h1>
@@ -117,24 +112,22 @@ def hero_section(
             <a href="{secondary_link}" class="hero-secondary">{secondary_label}</a>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
 
 def section_header(title, subtitle=None):
-    subtitle_html = ""
-    if subtitle:
-        subtitle_html = f'<div class="section-subtitle">{subtitle}</div>'
+    subtitle_html = f'<div class="section-subtitle">{subtitle}</div>' if subtitle else ""
 
-    st.markdown(f"""
+    html(f"""
     <div class="section-title">{title}</div>
     {subtitle_html}
-    """, unsafe_allow_html=True)
+    """)
 
 
 def module_card(status, icon, title, text, link="#"):
     status_class = "status-active" if status == "Aktiv" else "status-soon"
 
-    st.markdown(f"""
+    html(f"""
     <a href="{link}" class="module-card-link">
         <div class="module-card">
             <div class="module-card-top">
@@ -146,15 +139,13 @@ def module_card(status, icon, title, text, link="#"):
             <div class="module-arrow">Modul öffnen →</div>
         </div>
     </a>
-    """, unsafe_allow_html=True)
+    """)
 
 
 def feature_strip(title, text, features):
-    items = ""
-    for feature in features:
-        items += f'<div class="feature-item">{feature}</div>'
+    items = "".join([f'<div class="feature-item">{feature}</div>' for feature in features])
 
-    st.markdown(f"""
+    html(f"""
     <div class="feature-strip">
         <h3>{title}</h3>
         <p>{text}</p>
@@ -162,7 +153,7 @@ def feature_strip(title, text, features):
             {items}
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
 
 def roadmap_columns():
@@ -171,7 +162,6 @@ def roadmap_columns():
     with r1:
         st.markdown("""
         ### Phase 1 — MVP
-
         - HOAI Rechner
         - PDF / Word / Excel Export
         - Projekt speichern
@@ -182,7 +172,6 @@ def roadmap_columns():
     with r2:
         st.markdown("""
         ### Phase 2 — Office Suite
-
         - Projektakte
         - Firmenbranding
         - Angebotsnummern
@@ -193,7 +182,6 @@ def roadmap_columns():
     with r3:
         st.markdown("""
         ### Phase 3 — Professional Platform
-
         - Bauablaufplan
         - LV Generator
         - DIN 276
@@ -203,7 +191,7 @@ def roadmap_columns():
 
 
 def info_panel(title, text, icon="ℹ️"):
-    st.markdown(f"""
+    html(f"""
     <div class="info-panel">
         <div class="info-panel-icon">{icon}</div>
         <div>
@@ -211,15 +199,13 @@ def info_panel(title, text, icon="ℹ️"):
             <p>{text}</p>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
 
 def premium_banner(title, text, button_label=None, button_link="#"):
-    button_html = ""
-    if button_label:
-        button_html = f'<a href="{button_link}" class="banner-button">{button_label}</a>'
+    button_html = f'<a href="{button_link}" class="banner-button">{button_label}</a>' if button_label else ""
 
-    st.markdown(f"""
+    html(f"""
     <div class="premium-banner">
         <div>
             <h2>{title}</h2>
@@ -227,15 +213,13 @@ def premium_banner(title, text, button_label=None, button_link="#"):
         </div>
         {button_html}
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
 
 def footer():
-    st.markdown("""
+    html("""
     <div class="arch-footer">
-
         <div class="footer-main">
-
             <div>
                 <h2>ARCHiTool</h2>
                 <p>
@@ -270,13 +254,11 @@ def footer():
                 <a href="/Projektplanung">Bauablaufplan</a>
                 <a href="/Bauleitung">Bautagebuch</a>
             </div>
-
         </div>
 
         <div class="footer-bottom">
             <span>© 2026 ARCHiTool</span>
             <span>Professional Architecture Intelligence Platform</span>
         </div>
-
     </div>
-    """, unsafe_allow_html=True)
+    """)
