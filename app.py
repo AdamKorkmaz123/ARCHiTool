@@ -1,22 +1,42 @@
 import streamlit as st
+
 from ui.style import apply_global_style
-from ui.components import top_navigation, sidebar_navigation, footer, module_card
+
+from ui.components import (
+    top_navigation,
+    sidebar_navigation,
+    hero_section,
+    section_header,
+    module_card,
+    feature_strip,
+    roadmap_columns,
+    info_panel,
+    premium_banner,
+    footer,
+)
+
 from database.database import init_db, load_projects
+
+
+# =========================================================
+# PAGE CONFIG
+# =========================================================
 
 st.set_page_config(
     page_title="ARCHiTool",
     page_icon="🏛️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
+
+# =========================================================
+# INIT
+# =========================================================
 
 apply_global_style()
 init_db()
 
 user = st.session_state.get("user")
-
-sidebar_navigation()
-top_navigation()
 
 if user:
     projects = load_projects(user["id"])
@@ -24,164 +44,282 @@ if user:
 else:
     project_count = 0
 
-st.markdown("""
-<div class="hero-platform">
-    <div class="hero-badge">AEC SOFTWARE · HOAI · PROJEKTPLANUNG · LV · BAULEITUNG</div>
-    <h1>Die digitale Arbeitsplattform für moderne Architektur- und Ingenieurbüros</h1>
-    <p>
-        ARCHiTool bündelt HOAI-Honorarberechnung, Projektplanung,
-        Ausschreibung, LV-Erstellung, Bauleitung, Kostenmanagement und AI-gestützte Werkzeuge
-        in einer professionellen webbasierten Umgebung.
-    </p>
-    <div class="hero-actions">
-        <a href="/HOAI_Center" class="hero-primary">🏛️ HOAI Center öffnen</a>
-        <a href="/Dashboard" class="hero-secondary">📋 Plattform entdecken</a>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+# =========================================================
+# SIDEBAR
+# =========================================================
+
+sidebar_navigation()
+
+# =========================================================
+# TOP NAVIGATION
+# =========================================================
+
+top_navigation()
+
+# =========================================================
+# HERO SECTION
+# =========================================================
+
+hero_section(
+    badge="ARCHITECTURE · HOAI · LV · BAULEITUNG · DIN276 · AI",
+    title="Die nächste Generation digitaler Architekturplattformen",
+    text="""
+    ARCHiTool verbindet HOAI-Honorarberechnung, Projektplanung,
+    Ausschreibung, Kostenmanagement, Bauleitung und AI-gestützte
+    Architekturwerkzeuge in einer zentralen professionellen Plattform.
+    """,
+    primary_label="🏛️ HOAI Center öffnen",
+    primary_link="/HOAI_Center",
+    secondary_label="📂 Projekte ansehen",
+    secondary_link="/Projekte",
+)
+
+# =========================================================
+# USER INFO
+# =========================================================
 
 if user:
     st.success(f"Willkommen zurück, {user['name']}")
 else:
-    st.info("Du kannst ARCHiTool testen. Für Projektspeicherung bitte einloggen.")
+    st.warning(
+        "Nicht eingeloggt — Projekte und Einstellungen "
+        "werden erst nach Login gespeichert."
+    )
+
+# =========================================================
+# METRICS
+# =========================================================
 
 c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    st.metric("Projekte", project_count)
+    st.metric(
+        "Gespeicherte Projekte",
+        project_count
+    )
 
 with c2:
-    st.metric("Aktive Module", "1")
+    st.metric(
+        "Aktive Module",
+        "12"
+    )
 
 with c3:
-    st.metric("Geplante Module", "6+")
+    st.metric(
+        "Systemstatus",
+        "Online"
+    )
 
 with c4:
-    st.metric("Status", "Online MVP")
+    st.metric(
+        "Exportformate",
+        "PDF / DOCX / XLSX"
+    )
 
-st.markdown('<div class="section-title">🚀 Plattformmodule</div>', unsafe_allow_html=True)
-st.markdown("""
-<div class="section-subtitle">
-ARCHiTool ist modular aufgebaut. Jedes Werkzeug kann separat genutzt werden und wird später
-mit Projekten, Kunden, Dokumenten, Exporten und AI-Funktionen verbunden.
-</div>
-""", unsafe_allow_html=True)
+# =========================================================
+# FEATURE STRIP
+# =========================================================
+
+feature_strip(
+    title="Alles in einer Architekturplattform",
+    text="""
+    ARCHiTool wurde als vollständiges digitales Betriebssystem
+    für Architektur- und Ingenieurbüros konzipiert.
+    """,
+    features=[
+        "🏛️ HOAI",
+        "📋 LV Generator",
+        "📅 Bauablaufplan",
+        "📊 DIN 276",
+        "👷 Bauleitung",
+        "📂 Projektakte",
+        "🤖 AI Assistent",
+        "📄 Premium PDF",
+    ]
+)
+
+# =========================================================
+# MAIN MODULES
+# =========================================================
+
+section_header(
+    "Plattform Module",
+    "Modulare professionelle Werkzeuge für Architektur und Bauwesen."
+)
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
+
     module_card(
-        "Aktiv",
-        "🏛️",
-        "HOAI Center",
-        "Honorarberechnung nach HOAI, LPH 1–9, Zuschläge, Abschläge, Angebotsexport als PDF, Word und Excel.",
-        "/HOAI_Center"
+        status="Aktiv",
+        icon="🏛️",
+        title="HOAI Center",
+        text="""
+        Vollständige HOAI Plattform mit Rechner,
+        Wissensdatenbank, LPH Analyse und
+        professioneller Angebotserstellung.
+        """,
+        link="/HOAI_Center"
+    )
+
+    module_card(
+        status="Aktiv",
+        icon="📂",
+        title="Projektmanagement",
+        text="""
+        Projektübersicht, Kundenverwaltung,
+        Dokumentation und Projektakte
+        in zentraler Umgebung.
+        """,
+        link="/Projekte"
     )
 
 with col2:
+
     module_card(
-        "Demnächst",
-        "📅",
-        "Projektplanung",
-        "Bauablaufplan, Terminplanung, Meilensteine, Projektphasen, Gantt-Diagramme und Ressourcenplanung.",
-        "/Projektplanung"
+        status="Aktiv",
+        icon="📅",
+        title="Projektplanung",
+        text="""
+        Bauablaufpläne, Terminplanung,
+        Meilensteine und Gantt-Strukturen
+        für komplexe Bauprojekte.
+        """,
+        link="/Projektplanung"
+    )
+
+    module_card(
+        status="Coming Soon",
+        icon="👷",
+        title="Bauleitung",
+        text="""
+        Bautagebuch, Mängelmanagement,
+        Fotodokumentation und
+        Baustellenkoordination.
+        """,
+        link="/Bauleitung"
     )
 
 with col3:
+
     module_card(
-        "Demnächst",
-        "📋",
-        "Ausschreibung / LV",
-        "Einfache Leistungsverzeichnisse, Positionsgenerator, Standardtexte, Kostengruppen und Exportfunktionen.",
-        "/Ausschreibung_LV"
+        status="Coming Soon",
+        icon="📋",
+        title="Ausschreibung / LV",
+        text="""
+        Automatische LV-Erstellung,
+        Positionen, Standardtexte
+        und AI-basierte Leistungsverzeichnisse.
+        """,
+        link="/Ausschreibung_LV"
     )
 
-col1, col2, col3 = st.columns(3)
-
-with col1:
     module_card(
-        "Demnächst",
-        "👷",
-        "Bauleitung",
-        "Bautagebuch, Mängelmanagement, Baustellenberichte, Fotodokumentation und Bauleitungskosten.",
-        "/Bauleitung"
+        status="Coming Soon",
+        icon="💶",
+        title="Kostenmanagement",
+        text="""
+        DIN 276 Kostenstruktur,
+        Kostenschätzung, Kostenkontrolle
+        und Budgetverwaltung.
+        """,
+        link="/Kostenmanagement"
     )
 
-with col2:
-    module_card(
-        "Demnächst",
-        "💶",
-        "Kostenmanagement",
-        "DIN 276, Kostenschätzung, Kostenberechnung, Kostenanschlag, Kostenfeststellung und Kostenkontrolle.",
-        "/Kostenmanagement"
-    )
+# =========================================================
+# INFO SECTION
+# =========================================================
 
-with col3:
-    module_card(
-        "Demnächst",
-        "🤖",
-        "AI Assistent",
-        "AI-gestützte Vorschläge für Angebote, LV-Texte, Projektstruktur, Terminplanung und Dokumente.",
-        "/Dashboard"
-    )
+section_header(
+    "Professionelle Architekturplattform",
+    "ARCHiTool wurde für reale Architektur- und Ingenieurbüros entwickelt."
+)
+
+info_panel(
+    title="Enterprise Architektur",
+    text="""
+    Modulare Plattformstruktur mit skalierbarer Architektur.
+    Neue Module können jederzeit integriert werden:
+    AVA, CRM, LV, BIM, AI-Assistenten oder Kostenmanagement.
+    """,
+    icon="🏗️"
+)
+
+info_panel(
+    title="Premium Dokumentenerstellung",
+    text="""
+    Hochwertige PDF-, Word- und Excel-Dokumente
+    mit Firmenbranding, Logos und professionellen Layouts.
+    """,
+    icon="📄"
+)
+
+info_panel(
+    title="Zukunftssichere Plattform",
+    text="""
+    Die gesamte Plattform wurde vorbereitet
+    für Cloud-Datenbanken, Teamverwaltung,
+    APIs und zukünftige AI-Integrationen.
+    """,
+    icon="🚀"
+)
+
+# =========================================================
+# PREMIUM BANNER
+# =========================================================
+
+premium_banner(
+    title="ARCHiTool Professional Platform",
+    text="""
+    Die digitale Komplettlösung für Architektur,
+    Projektmanagement, Ausschreibung und Bauleitung.
+    """,
+    button_label="Plattform öffnen",
+    button_link="/HOAI_Center",
+)
+
+# =========================================================
+# ROADMAP
+# =========================================================
+
+section_header(
+    "Produkt Roadmap",
+    "Die Plattform wird kontinuierlich erweitert."
+)
+
+roadmap_columns()
+
+# =========================================================
+# SYSTEM OVERVIEW
+# =========================================================
+
+section_header(
+    "Technologie & Plattform",
+    "Professionelle SaaS Architektur für moderne AEC Workflows."
+)
 
 st.markdown("""
-<div class="feature-strip">
-    <h3>Ein zentrales System für den Büroalltag</h3>
-    <p>
-        ARCHiTool wird als professionelle Plattform für den gesamten Projektprozess aufgebaut:
-        von der Honorarermittlung über Planung und Ausschreibung bis zu Bauleitung,
-        Kostenkontrolle und Dokumentation.
-    </p>
+<div class="main-card">
 
-    <div class="feature-list">
-        <div class="feature-item">🏛️ HOAI Rechner</div>
-        <div class="feature-item">📅 Bauablaufplan</div>
-        <div class="feature-item">📋 LV Generator</div>
-        <div class="feature-item">💶 DIN 276</div>
-        <div class="feature-item">👷 Bauleitung</div>
-        <div class="feature-item">📂 Projektakte</div>
-        <div class="feature-item">📄 Export Center</div>
-        <div class="feature-item">🤖 AI Tools</div>
-    </div>
+### Plattformstruktur
+
+- Multi-Page Enterprise Architektur
+- Benutzerbasierte Projektdatenbanken
+- Responsive SaaS Oberfläche
+- Modulares Komponenten-System
+- Premium UI / UX
+- AI-Ready Architektur
+- Cloud Erweiterbarkeit
+- Teamfähige Struktur
+- Export-System
+- Future BIM Integration
+
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="section-title">🛣️ Entwicklungs-Roadmap</div>', unsafe_allow_html=True)
-
-r1, r2, r3 = st.columns(3)
-
-with r1:
-    st.markdown("""
-    ### Phase 1 — MVP
-
-    - HOAI Rechner
-    - PDF / Word / Excel Export
-    - Projekt speichern
-    - Login System
-    - Basis Dashboard
-    """)
-
-with r2:
-    st.markdown("""
-    ### Phase 2 — Office Suite
-
-    - Projektakte
-    - Firmenbranding
-    - Angebotsnummern
-    - Premium PDF
-    - Kundenverwaltung
-    """)
-
-with r3:
-    st.markdown("""
-    ### Phase 3 — Professional Platform
-
-    - Bauablaufplan
-    - LV Generator
-    - DIN 276
-    - Bauleitung
-    - AI Assistent
-    """)
+# =========================================================
+# FOOTER
+# =========================================================
 
 footer()
