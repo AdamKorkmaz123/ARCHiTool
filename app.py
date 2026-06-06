@@ -1,5 +1,6 @@
 import streamlit as st
 from ui.style import apply_global_style
+from ui.components import top_navigation, footer, module_card
 from database.database import init_db, load_projects
 
 st.set_page_config(
@@ -17,21 +18,32 @@ user = st.session_state.get("user")
 with st.sidebar:
     st.title("🏛️ ARCHiTool")
     st.markdown("---")
-    st.write("**Platform Navigation**")
-    st.write("🏛️ HOAI Rechner")
+    st.write("**Navigation**")
+    st.write("🏠 Dashboard")
+    st.write("🏛️ HOAI Center")
+    st.write("📅 Projektplanung")
+    st.write("📋 Ausschreibung LV")
+    st.write("👷 Bauleitung")
+    st.write("💶 Kostenmanagement")
     st.write("📂 Projekte")
     st.write("⚙️ Einstellungen")
     st.write("👤 Login")
-    st.markdown("---")
-    st.caption("Weitere Module werden schrittweise ergänzt.")
+
+top_navigation()
 
 st.markdown("""
-<div class="hero-card">
-    <h1>🏛️ ARCHiTool</h1>
+<div class="hero-platform">
+    <div class="hero-badge">ARCHITECTURE · ENGINEERING · CONSTRUCTION</div>
+    <h1>Digitale Plattform für Architektur- und Ingenieurbüros</h1>
     <p>
-        Die digitale Arbeitsplattform für Architektur- und Ingenieurbüros:
-        HOAI, Projektplanung, Ausschreibung, Bauleitung und Kostenmanagement.
+        ARCHiTool vereint HOAI-Honorarberechnung, Projektplanung,
+        Ausschreibung, LV-Erstellung, Bauleitung und Kostenmanagement
+        in einer modernen webbasierten Arbeitsumgebung.
     </p>
+    <div class="hero-actions">
+        <span class="hero-primary">🏛️ HOAI Center öffnen</span>
+        <span class="hero-secondary">📋 Module entdecken</span>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -45,104 +57,123 @@ else:
 
 c1, c2, c3, c4 = st.columns(4)
 
-c1.metric("Gespeicherte Projekte", project_count)
-c2.metric("Aktive Module", "1")
-c3.metric("Exportformate", "PDF / Word / Excel")
-c4.metric("Status", "MVP Online")
+with c1:
+    st.metric("Projekte", project_count)
 
-st.markdown('<div class="section-title">🚀 Module</div>', unsafe_allow_html=True)
+with c2:
+    st.metric("Aktive Module", "1")
 
-col1, col2, col3 = st.columns(3)
+with c3:
+    st.metric("Geplante Module", "6+")
 
-with col1:
-    st.markdown("""
-    <div class="module-card">
-        <span class="status-active">Aktiv</span>
-        <h3>🏛️ HOAI Center</h3>
-        <p>HOAI Honorarberechnung, LPH 1–9, Zuschläge, Abschläge, PDF/Word/Excel Export.</p>
-    </div>
-    """, unsafe_allow_html=True)
+with c4:
+    st.metric("Status", "Online MVP")
 
-with col2:
-    st.markdown("""
-    <div class="module-card">
-        <span class="status-soon">Demnächst</span>
-        <h3>📅 Projektplanung</h3>
-        <p>Bauablaufplan, Terminplan, Meilensteine, Projektphasen und Zeitachsen.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-    <div class="module-card">
-        <span class="status-soon">Demnächst</span>
-        <h3>📋 Ausschreibung / LV</h3>
-        <p>Einfaches LV, Positionsgenerator, Kostengruppen und Textbausteine.</p>
-    </div>
-    """, unsafe_allow_html=True)
+st.markdown('<div class="section-title">🚀 Plattformmodule</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="section-subtitle">Alle Werkzeuge, die Architektur- und Ingenieurbüros im Alltag brauchen — schrittweise als professionelle Module aufgebaut.</div>',
+    unsafe_allow_html=True
+)
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.markdown("""
-    <div class="module-card">
-        <span class="status-soon">Demnächst</span>
-        <h3>👷 Bauleitung</h3>
-        <p>Bauleitungskosten, Bautagebuch, Mängelmanagement und Baustellenberichte.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    module_card(
+        "Aktiv",
+        "🏛️",
+        "HOAI Center",
+        "HOAI Rechner, LPH 1–9, Zuschläge, Abschläge, Honorarangebot und Export als PDF, Word und Excel."
+    )
 
 with col2:
-    st.markdown("""
-    <div class="module-card">
-        <span class="status-soon">Demnächst</span>
-        <h3>💶 Kostenmanagement</h3>
-        <p>DIN 276, Kostenschätzung, Kostenberechnung, Kostenanschlag und Kostenkontrolle.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    module_card(
+        "Demnächst",
+        "📅",
+        "Projektplanung",
+        "Bauablaufplan, Terminplanung, Meilensteine, Projektphasen, Gantt und Ressourcenplanung."
+    )
 
 with col3:
-    st.markdown("""
-    <div class="module-card">
-        <span class="status-soon">Demnächst</span>
-        <h3>🤖 AI Assistent</h3>
-        <p>Automatische Vorschläge für Angebote, LV-Texte, Projektstruktur und Dokumente.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    module_card(
+        "Demnächst",
+        "📋",
+        "Ausschreibung / LV",
+        "Einfaches LV erstellen, Positionen generieren, Standardtexte, Kostengruppen und Exportfunktionen."
+    )
 
-st.markdown("---")
-
-st.markdown('<div class="section-title">📌 Plattformbereiche</div>', unsafe_allow_html=True)
-
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.info("🏛️ **HOAI Rechner**\n\nHonorarangebote berechnen.")
+    module_card(
+        "Demnächst",
+        "👷",
+        "Bauleitung",
+        "Bautagebuch, Mängelmanagement, Baustellenberichte, Fotodokumentation und Bauleitungskosten."
+    )
 
 with col2:
-    st.info("📂 **Projekte**\n\nProjekte speichern und verwalten.")
+    module_card(
+        "Demnächst",
+        "💶",
+        "Kostenmanagement",
+        "DIN 276, Kostenschätzung, Kostenberechnung, Kostenanschlag, Kostenfeststellung und Kontrolle."
+    )
 
 with col3:
-    st.info("⚙️ **Einstellungen**\n\nFarben, Logo und Design.")
+    module_card(
+        "Demnächst",
+        "🤖",
+        "AI Assistent",
+        "Automatische Vorschläge für Angebote, LV-Texte, Projektstruktur, Terminplanung und Dokumente."
+    )
 
-with col4:
-    st.info("👤 **Login**\n\nBenutzerkonto verwalten.")
+st.markdown("""
+<div class="feature-strip">
+    <h3>Ein System für den gesamten Büroalltag</h3>
+    <p>
+        ARCHiTool wird als modulare Plattform aufgebaut. Jedes Modul kann eigenständig genutzt
+        werden und später mit Projekten, Kunden, Exporten und AI-Funktionen verbunden werden.
+    </p>
 
-st.markdown("---")
+    <div class="feature-list">
+        <div class="feature-item">🏛️ HOAI</div>
+        <div class="feature-item">📅 Bauablaufplan</div>
+        <div class="feature-item">📋 LV Generator</div>
+        <div class="feature-item">💶 DIN 276</div>
+        <div class="feature-item">👷 Bauleitung</div>
+        <div class="feature-item">📂 Projektakte</div>
+        <div class="feature-item">📄 Export Center</div>
+        <div class="feature-item">🤖 AI Tools</div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
-st.markdown('<div class="section-title">🛣️ Roadmap</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title">📌 Entwicklungs-Roadmap</div>', unsafe_allow_html=True)
 
-st.write("""
-**Geplante Erweiterungen:**
+col1, col2 = st.columns(2)
 
-- HOAI Wissen / Paragraphen / Erklärungstexte
-- Bauablaufplan Generator
-- Einfacher LV Generator
-- Bauleitungskosten Tabellen
-- DIN 276 Kostenmanagement
-- Angebotsnummern und Firmenvorlagen
-- Premium PDF Templates
-- Kundenverwaltung
-- Cloud Datenbank
-- Team- und Rollenverwaltung
-""")
+with col1:
+    st.markdown("""
+    ### Kurzfristig
+
+    - HOAI Center verbessern
+    - PDF Premium Template
+    - Projektakte
+    - Firmenlogo / Branding
+    - Benutzerprofile
+    - Angebotsnummern
+    """)
+
+with col2:
+    st.markdown("""
+    ### Mittelfristig
+
+    - Bauablaufplan Generator
+    - LV Generator
+    - DIN 276 Kostenmanagement
+    - Bautagebuch
+    - AI Angebotsassistent
+    - Cloud Datenbank
+    """)
+
+footer()
