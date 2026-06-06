@@ -1,6 +1,6 @@
 import streamlit as st
 from ui.style import apply_global_style
-from ui.components import top_navigation, footer, module_card
+from ui.components import top_navigation, sidebar_navigation, footer, module_card
 from database.database import init_db, load_projects
 
 st.set_page_config(
@@ -15,44 +15,34 @@ init_db()
 
 user = st.session_state.get("user")
 
-with st.sidebar:
-    st.title("🏛️ ARCHiTool")
-    st.markdown("---")
-    st.write("**Navigation**")
-    st.write("🏠 Dashboard")
-    st.write("🏛️ HOAI Center")
-    st.write("📅 Projektplanung")
-    st.write("📋 Ausschreibung LV")
-    st.write("👷 Bauleitung")
-    st.write("💶 Kostenmanagement")
-    st.write("📂 Projekte")
-    st.write("⚙️ Einstellungen")
-    st.write("👤 Login")
-
+sidebar_navigation()
 top_navigation()
+
+if user:
+    projects = load_projects(user["id"])
+    project_count = len(projects)
+else:
+    project_count = 0
 
 st.markdown("""
 <div class="hero-platform">
-    <div class="hero-badge">ARCHITECTURE · ENGINEERING · CONSTRUCTION</div>
-    <h1>Digitale Plattform für Architektur- und Ingenieurbüros</h1>
+    <div class="hero-badge">AEC SOFTWARE · HOAI · PROJEKTPLANUNG · LV · BAULEITUNG</div>
+    <h1>Die digitale Arbeitsplattform für moderne Architektur- und Ingenieurbüros</h1>
     <p>
-        ARCHiTool vereint HOAI-Honorarberechnung, Projektplanung,
-        Ausschreibung, LV-Erstellung, Bauleitung und Kostenmanagement
-        in einer modernen webbasierten Arbeitsumgebung.
+        ARCHiTool bündelt HOAI-Honorarberechnung, Projektplanung,
+        Ausschreibung, LV-Erstellung, Bauleitung, Kostenmanagement und AI-gestützte Werkzeuge
+        in einer professionellen webbasierten Umgebung.
     </p>
     <div class="hero-actions">
-        <span class="hero-primary">🏛️ HOAI Center öffnen</span>
-        <span class="hero-secondary">📋 Module entdecken</span>
+        <a href="/HOAI_Center" class="hero-primary">🏛️ HOAI Center öffnen</a>
+        <a href="/Dashboard" class="hero-secondary">📋 Plattform entdecken</a>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 if user:
-    projects = load_projects(user["id"])
-    project_count = len(projects)
     st.success(f"Willkommen zurück, {user['name']}")
 else:
-    project_count = 0
     st.info("Du kannst ARCHiTool testen. Für Projektspeicherung bitte einloggen.")
 
 c1, c2, c3, c4 = st.columns(4)
@@ -70,10 +60,12 @@ with c4:
     st.metric("Status", "Online MVP")
 
 st.markdown('<div class="section-title">🚀 Plattformmodule</div>', unsafe_allow_html=True)
-st.markdown(
-    '<div class="section-subtitle">Alle Werkzeuge, die Architektur- und Ingenieurbüros im Alltag brauchen — schrittweise als professionelle Module aufgebaut.</div>',
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class="section-subtitle">
+ARCHiTool ist modular aufgebaut. Jedes Werkzeug kann separat genutzt werden und wird später
+mit Projekten, Kunden, Dokumenten, Exporten und AI-Funktionen verbunden.
+</div>
+""", unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 
@@ -82,7 +74,8 @@ with col1:
         "Aktiv",
         "🏛️",
         "HOAI Center",
-        "HOAI Rechner, LPH 1–9, Zuschläge, Abschläge, Honorarangebot und Export als PDF, Word und Excel."
+        "Honorarberechnung nach HOAI, LPH 1–9, Zuschläge, Abschläge, Angebotsexport als PDF, Word und Excel.",
+        "/HOAI_Center"
     )
 
 with col2:
@@ -90,7 +83,8 @@ with col2:
         "Demnächst",
         "📅",
         "Projektplanung",
-        "Bauablaufplan, Terminplanung, Meilensteine, Projektphasen, Gantt und Ressourcenplanung."
+        "Bauablaufplan, Terminplanung, Meilensteine, Projektphasen, Gantt-Diagramme und Ressourcenplanung.",
+        "/Projektplanung"
     )
 
 with col3:
@@ -98,7 +92,8 @@ with col3:
         "Demnächst",
         "📋",
         "Ausschreibung / LV",
-        "Einfaches LV erstellen, Positionen generieren, Standardtexte, Kostengruppen und Exportfunktionen."
+        "Einfache Leistungsverzeichnisse, Positionsgenerator, Standardtexte, Kostengruppen und Exportfunktionen.",
+        "/Ausschreibung_LV"
     )
 
 col1, col2, col3 = st.columns(3)
@@ -108,7 +103,8 @@ with col1:
         "Demnächst",
         "👷",
         "Bauleitung",
-        "Bautagebuch, Mängelmanagement, Baustellenberichte, Fotodokumentation und Bauleitungskosten."
+        "Bautagebuch, Mängelmanagement, Baustellenberichte, Fotodokumentation und Bauleitungskosten.",
+        "/Bauleitung"
     )
 
 with col2:
@@ -116,7 +112,8 @@ with col2:
         "Demnächst",
         "💶",
         "Kostenmanagement",
-        "DIN 276, Kostenschätzung, Kostenberechnung, Kostenanschlag, Kostenfeststellung und Kontrolle."
+        "DIN 276, Kostenschätzung, Kostenberechnung, Kostenanschlag, Kostenfeststellung und Kostenkontrolle.",
+        "/Kostenmanagement"
     )
 
 with col3:
@@ -124,19 +121,21 @@ with col3:
         "Demnächst",
         "🤖",
         "AI Assistent",
-        "Automatische Vorschläge für Angebote, LV-Texte, Projektstruktur, Terminplanung und Dokumente."
+        "AI-gestützte Vorschläge für Angebote, LV-Texte, Projektstruktur, Terminplanung und Dokumente.",
+        "/Dashboard"
     )
 
 st.markdown("""
 <div class="feature-strip">
-    <h3>Ein System für den gesamten Büroalltag</h3>
+    <h3>Ein zentrales System für den Büroalltag</h3>
     <p>
-        ARCHiTool wird als modulare Plattform aufgebaut. Jedes Modul kann eigenständig genutzt
-        werden und später mit Projekten, Kunden, Exporten und AI-Funktionen verbunden werden.
+        ARCHiTool wird als professionelle Plattform für den gesamten Projektprozess aufgebaut:
+        von der Honorarermittlung über Planung und Ausschreibung bis zu Bauleitung,
+        Kostenkontrolle und Dokumentation.
     </p>
 
     <div class="feature-list">
-        <div class="feature-item">🏛️ HOAI</div>
+        <div class="feature-item">🏛️ HOAI Rechner</div>
         <div class="feature-item">📅 Bauablaufplan</div>
         <div class="feature-item">📋 LV Generator</div>
         <div class="feature-item">💶 DIN 276</div>
@@ -148,32 +147,41 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="section-title">📌 Entwicklungs-Roadmap</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title">🛣️ Entwicklungs-Roadmap</div>', unsafe_allow_html=True)
 
-col1, col2 = st.columns(2)
+r1, r2, r3 = st.columns(3)
 
-with col1:
+with r1:
     st.markdown("""
-    ### Kurzfristig
+    ### Phase 1 — MVP
 
-    - HOAI Center verbessern
-    - PDF Premium Template
-    - Projektakte
-    - Firmenlogo / Branding
-    - Benutzerprofile
-    - Angebotsnummern
+    - HOAI Rechner
+    - PDF / Word / Excel Export
+    - Projekt speichern
+    - Login System
+    - Basis Dashboard
     """)
 
-with col2:
+with r2:
     st.markdown("""
-    ### Mittelfristig
+    ### Phase 2 — Office Suite
 
-    - Bauablaufplan Generator
+    - Projektakte
+    - Firmenbranding
+    - Angebotsnummern
+    - Premium PDF
+    - Kundenverwaltung
+    """)
+
+with r3:
+    st.markdown("""
+    ### Phase 3 — Professional Platform
+
+    - Bauablaufplan
     - LV Generator
-    - DIN 276 Kostenmanagement
-    - Bautagebuch
-    - AI Angebotsassistent
-    - Cloud Datenbank
+    - DIN 276
+    - Bauleitung
+    - AI Assistent
     """)
 
 footer()

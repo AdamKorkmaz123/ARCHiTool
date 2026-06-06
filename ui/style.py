@@ -11,32 +11,36 @@ def apply_global_style():
         text = "#f8fafc"
         muted = "#94a3b8"
         border = "#1e293b"
-        sidebar = "#020617"
-        nav_bg = "rgba(2, 6, 23, 0.92)"
+        soft = "#111827"
+        nav = "rgba(2, 6, 23, 0.92)"
     else:
         bg = "#f8fafc"
         card = "#ffffff"
         text = "#0f172a"
         muted = "#64748b"
         border = "#e2e8f0"
-        sidebar = "#0f172a"
-        nav_bg = "rgba(255, 255, 255, 0.92)"
+        soft = "#eef2ff"
+        nav = "rgba(255,255,255,0.94)"
 
     st.markdown(f"""
     <style>
 
     .stApp {{
-        background: {bg};
+        background:
+            radial-gradient(circle at top left, rgba(30,58,138,0.08), transparent 28%),
+            linear-gradient(180deg, {bg} 0%, #ffffff 100%);
         color: {text};
     }}
 
     .block-container {{
-        padding-top: 1.2rem;
-        max-width: 1400px;
+        max-width: 1480px;
+        padding-top: 1rem;
+        padding-bottom: 0;
     }}
 
     section[data-testid="stSidebar"] {{
-        background: {sidebar};
+        background: #0f172a;
+        border-right: 1px solid rgba(255,255,255,0.08);
     }}
 
     section[data-testid="stSidebar"] * {{
@@ -47,302 +51,523 @@ def apply_global_style():
         color: {text};
     }}
 
-    .top-nav {{
+    a {{
+        text-decoration: none !important;
+    }}
+
+    /* TOP NAVIGATION */
+
+    .arch-topbar {{
         position: sticky;
         top: 0;
-        z-index: 100;
-        background: {nav_bg};
-        backdrop-filter: blur(14px);
+        z-index: 999;
+        background: {nav};
+        backdrop-filter: blur(18px);
         border: 1px solid {border};
-        border-radius: 22px;
-        padding: 16px 24px;
-        margin-bottom: 28px;
+        border-radius: 24px;
+        padding: 14px 22px;
+        margin-bottom: 30px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+        box-shadow: 0 18px 45px rgba(15,23,42,0.10);
     }}
 
-    .brand {{
+    .arch-logo {{
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 13px;
+    }}
+
+    .arch-logo-mark {{
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, {primary}, #0f172a);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-weight: 900;
         font-size: 24px;
+        box-shadow: 0 10px 25px rgba(30,58,138,0.35);
+    }}
+
+    .arch-logo-title {{
+        font-size: 23px;
+        font-weight: 950;
+        letter-spacing: -0.8px;
         color: {text};
     }}
 
-    .brand-icon {{
-        font-size: 30px;
-    }}
-
-    .brand-text {{
-        letter-spacing: -0.5px;
-    }}
-
-    .nav-links {{
-        display: flex;
-        gap: 22px;
-        font-weight: 700;
-        font-size: 14px;
+    .arch-logo-subtitle {{
+        font-size: 11px;
         color: {muted};
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
     }}
 
-    .nav-links span {{
-        cursor: default;
-        white-space: nowrap;
-    }}
-
-    .nav-action {{
+    .arch-menu {{
         display: flex;
         align-items: center;
+        gap: 8px;
     }}
 
-    .login-pill {{
-        background: {primary};
-        color: white;
-        padding: 9px 18px;
-        border-radius: 999px;
-        font-weight: 800;
+    .arch-menu-item {{
+        position: relative;
+        padding: 13px 14px;
         font-size: 14px;
+        font-weight: 850;
+        color: {text};
+        border-radius: 14px;
+        cursor: default;
+        transition: all 0.2s ease;
     }}
+
+    .arch-menu-item:hover {{
+        background: {soft};
+        color: {primary};
+    }}
+
+    .arch-dropdown {{
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(12px);
+        transition: all 0.22s ease;
+        position: absolute;
+        top: 46px;
+        left: 0;
+        min-width: 230px;
+        background: {card};
+        border: 1px solid {border};
+        border-radius: 18px;
+        padding: 10px;
+        box-shadow: 0 24px 55px rgba(15,23,42,0.18);
+        z-index: 9999;
+    }}
+
+    .arch-menu-item:hover .arch-dropdown {{
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }}
+
+    .arch-dropdown a {{
+        display: block;
+        color: {text};
+        padding: 11px 13px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 750;
+    }}
+
+    .arch-dropdown a:hover {{
+        background: {soft};
+        color: {primary};
+    }}
+
+    .arch-login-btn {{
+        display: inline-block;
+        background: {primary};
+        color: white !important;
+        padding: 11px 19px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 900;
+        box-shadow: 0 10px 24px rgba(30,58,138,0.28);
+    }}
+
+    /* SIDEBAR */
+
+    .side-brand {{
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 28px;
+    }}
+
+    .side-logo {{
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: white;
+        color: #0f172a !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 950;
+        font-size: 24px;
+    }}
+
+    .side-title {{
+        font-size: 22px;
+        font-weight: 950;
+    }}
+
+    .side-subtitle {{
+        font-size: 11px;
+        color: #94a3b8 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }}
+
+    .side-section-title {{
+        margin-top: 25px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        color: #94a3b8 !important;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+        font-weight: 900;
+    }}
+
+    .side-link {{
+        display: block;
+        padding: 11px 13px;
+        border-radius: 13px;
+        color: #e2e8f0 !important;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }}
+
+    .side-link:hover {{
+        background: rgba(255,255,255,0.10);
+    }}
+
+    .side-status {{
+        background: rgba(255,255,255,0.08);
+        border-radius: 14px;
+        padding: 13px;
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 800;
+    }}
+
+    .side-status span {{
+        width: 10px;
+        height: 10px;
+        background: #22c55e;
+        border-radius: 50%;
+        display: inline-block;
+    }}
+
+    /* HERO */
 
     .hero-platform {{
         background:
-            linear-gradient(135deg, rgba(30, 58, 138, 0.92) 0%, rgba(15, 23, 42, 0.96) 100%),
-            radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 40%);
+            linear-gradient(120deg, rgba(15,23,42,0.95), rgba(30,58,138,0.94)),
+            radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 36%);
         color: white;
-        padding: 70px 60px;
-        border-radius: 36px;
-        margin-bottom: 36px;
-        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+        padding: 76px 66px;
+        border-radius: 40px;
+        box-shadow: 0 30px 80px rgba(15,23,42,0.28);
+        margin-bottom: 34px;
         position: relative;
         overflow: hidden;
     }}
 
-    .hero-platform h1 {{
-        color: white;
-        font-size: 56px;
-        line-height: 1.05;
-        margin-bottom: 18px;
-        max-width: 900px;
-        letter-spacing: -1.5px;
-    }}
-
-    .hero-platform p {{
-        color: #e2e8f0;
-        font-size: 19px;
-        max-width: 760px;
-        line-height: 1.65;
+    .hero-platform::after {{
+        content: "";
+        position: absolute;
+        right: -100px;
+        bottom: -120px;
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.08);
     }}
 
     .hero-badge {{
         display: inline-block;
-        background: rgba(255,255,255,0.14);
+        background: rgba(255,255,255,0.13);
+        border: 1px solid rgba(255,255,255,0.22);
         color: white;
-        padding: 8px 14px;
-        border: 1px solid rgba(255,255,255,0.25);
+        padding: 9px 15px;
         border-radius: 999px;
-        font-size: 14px;
-        font-weight: 800;
-        margin-bottom: 18px;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }}
+
+    .hero-platform h1 {{
+        color: white;
+        font-size: 60px;
+        max-width: 900px;
+        line-height: 1.03;
+        letter-spacing: -1.8px;
+        margin-bottom: 20px;
+    }}
+
+    .hero-platform p {{
+        color: #dbeafe;
+        font-size: 19px;
+        line-height: 1.68;
+        max-width: 790px;
     }}
 
     .hero-actions {{
-        margin-top: 28px;
+        margin-top: 30px;
         display: flex;
-        gap: 14px;
+        gap: 15px;
         flex-wrap: wrap;
+    }}
+
+    .hero-primary, .hero-secondary {{
+        display: inline-block;
+        padding: 14px 22px;
+        border-radius: 16px;
+        font-weight: 950;
     }}
 
     .hero-primary {{
         background: white;
         color: {primary};
-        padding: 13px 22px;
-        border-radius: 14px;
-        font-weight: 900;
-        display: inline-block;
     }}
 
     .hero-secondary {{
         background: rgba(255,255,255,0.12);
         color: white;
-        border: 1px solid rgba(255,255,255,0.35);
-        padding: 13px 22px;
-        border-radius: 14px;
-        font-weight: 800;
-        display: inline-block;
+        border: 1px solid rgba(255,255,255,0.30);
     }}
 
+    /* SECTIONS */
+
     .section-title {{
-        font-size: 34px;
-        font-weight: 900;
-        margin-top: 34px;
-        margin-bottom: 12px;
-        letter-spacing: -0.7px;
+        font-size: 35px;
+        font-weight: 950;
+        margin-top: 38px;
+        margin-bottom: 10px;
+        letter-spacing: -1px;
     }}
 
     .section-subtitle {{
         color: {muted};
         font-size: 17px;
-        margin-bottom: 24px;
+        line-height: 1.6;
         max-width: 850px;
+        margin-bottom: 24px;
+    }}
+
+    /* MODULE CARDS */
+
+    .module-card-link {{
+        display: block;
     }}
 
     .module-card {{
         background: {card};
         border: 1px solid {border};
         border-left: 7px solid {primary};
+        border-radius: 30px;
         padding: 28px;
-        border-radius: 28px;
-        margin-bottom: 18px;
-        box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
-        min-height: 210px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        min-height: 235px;
+        margin-bottom: 20px;
+        box-shadow: 0 16px 42px rgba(15,23,42,0.09);
+        transition: all 0.23s ease;
     }}
 
     .module-card:hover {{
-        transform: translateY(-4px);
-        box-shadow: 0 22px 50px rgba(15, 23, 42, 0.14);
+        transform: translateY(-6px);
+        box-shadow: 0 28px 70px rgba(15,23,42,0.16);
+    }}
+
+    .module-card-top {{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }}
+
+    .module-icon {{
+        font-size: 32px;
     }}
 
     .module-card h3 {{
-        margin-top: 16px;
+        font-size: 24px;
+        margin-top: 18px;
         margin-bottom: 10px;
-        font-size: 23px;
-        font-weight: 900;
+        font-weight: 950;
+        color: {text};
     }}
 
     .module-card p {{
         color: {muted};
         font-size: 15.5px;
-        line-height: 1.55;
+        line-height: 1.62;
+    }}
+
+    .module-arrow {{
+        margin-top: 18px;
+        color: {primary};
+        font-weight: 950;
+        font-size: 14px;
+    }}
+
+    .status-active, .status-soon {{
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 950;
     }}
 
     .status-active {{
-        display: inline-block;
         background: #dcfce7;
         color: #166534;
-        padding: 5px 12px;
-        border-radius: 999px;
-        font-size: 13px;
-        font-weight: 800;
     }}
 
     .status-soon {{
-        display: inline-block;
         background: #fef3c7;
         color: #92400e;
-        padding: 5px 12px;
-        border-radius: 999px;
-        font-size: 13px;
-        font-weight: 800;
     }}
+
+    /* METRICS */
+
+    div[data-testid="stMetric"] {{
+        background: {card};
+        border: 1px solid {border};
+        border-left: 7px solid {primary};
+        padding: 23px;
+        border-radius: 26px;
+        box-shadow: 0 14px 36px rgba(15,23,42,0.08);
+    }}
+
+    /* FEATURE STRIP */
 
     .feature-strip {{
         background: {card};
         border: 1px solid {border};
-        border-radius: 28px;
-        padding: 30px;
-        margin: 30px 0;
-        box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
+        border-radius: 34px;
+        padding: 34px;
+        margin: 34px 0;
+        box-shadow: 0 16px 42px rgba(15,23,42,0.08);
     }}
 
     .feature-strip h3 {{
-        font-size: 28px;
-        font-weight: 900;
+        font-size: 30px;
+        font-weight: 950;
     }}
 
     .feature-list {{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 14px;
-        margin-top: 18px;
+        margin-top: 20px;
     }}
 
     .feature-item {{
-        background: rgba(30, 58, 138, 0.08);
-        border-radius: 16px;
-        padding: 14px;
-        font-weight: 800;
+        background: rgba(30,58,138,0.08);
+        border-radius: 18px;
+        padding: 16px;
+        font-weight: 900;
         color: {text};
     }}
 
-    div[data-testid="stMetric"] {{
-        background: {card};
-        padding: 22px;
-        border-radius: 24px;
-        border-left: 7px solid {primary};
-        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-    }}
+    /* BUTTONS */
 
     .stButton > button {{
         background: {primary};
         color: white;
-        border-radius: 14px;
         border: none;
-        padding: 0.65rem 1.05rem;
-        font-weight: 800;
+        border-radius: 15px;
+        padding: 0.7rem 1.15rem;
+        font-weight: 900;
     }}
 
     .stDownloadButton > button {{
         background: {primary};
         color: white;
-        border-radius: 14px;
         border: none;
-        font-weight: 800;
+        border-radius: 15px;
+        font-weight: 900;
     }}
 
-    .footer {{
+    /* FOOTER */
+
+    .arch-footer {{
         margin-top: 70px;
         background: #0f172a;
         color: white;
-        border-radius: 34px 34px 0 0;
-        padding: 46px;
+        border-radius: 40px 40px 0 0;
+        overflow: hidden;
+    }}
+
+    .footer-main {{
+        padding: 52px;
         display: grid;
         grid-template-columns: 2fr 1fr 1fr 1fr;
-        gap: 30px;
+        gap: 36px;
     }}
 
-    .footer h3, .footer h4 {{
+    .footer-main h2, .footer-main h4 {{
         color: white;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
     }}
 
-    .footer p {{
+    .footer-main p {{
         color: #cbd5e1;
-        margin: 5px 0;
+        line-height: 1.6;
+    }}
+
+    .footer-main a {{
+        display: block;
+        color: #cbd5e1 !important;
+        margin-bottom: 8px;
         font-size: 14px;
+        font-weight: 700;
+    }}
+
+    .footer-main a:hover {{
+        color: white !important;
     }}
 
     .footer-bottom {{
         background: #020617;
         color: #94a3b8;
-        padding: 16px 30px;
-        border-radius: 0 0 24px 24px;
+        padding: 18px 52px;
+        display: flex;
+        justify-content: space-between;
         font-size: 13px;
-        margin-bottom: 20px;
+        font-weight: 700;
     }}
 
-    @media (max-width: 900px) {{
-        .nav-links {{
+    @media (max-width: 1100px) {{
+        .arch-menu {{
             display: none;
         }}
 
         .hero-platform {{
-            padding: 42px 28px;
+            padding: 48px 32px;
         }}
 
         .hero-platform h1 {{
-            font-size: 36px;
+            font-size: 40px;
         }}
 
+        .feature-list {{
+            grid-template-columns: 1fr 1fr;
+        }}
+
+        .footer-main {{
+            grid-template-columns: 1fr 1fr;
+        }}
+    }}
+
+    @media (max-width: 700px) {{
         .feature-list {{
             grid-template-columns: 1fr;
         }}
 
-        .footer {{
+        .footer-main {{
             grid-template-columns: 1fr;
+        }}
+
+        .footer-bottom {{
+            flex-direction: column;
+            gap: 8px;
         }}
     }}
 
