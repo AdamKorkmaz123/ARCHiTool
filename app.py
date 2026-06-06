@@ -2,10 +2,6 @@ import streamlit as st
 from ui.style import apply_global_style
 from database.database import init_db, load_projects
 
-# ---------------------------------------------------
-# PAGE CONFIG
-# ---------------------------------------------------
-
 st.set_page_config(
     page_title="ARCHiTool",
     page_icon="🏛️",
@@ -13,18 +9,10 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------------------------------------------------
-# INIT
-# ---------------------------------------------------
-
 apply_global_style()
 init_db()
 
 user = st.session_state.get("user")
-
-# ---------------------------------------------------
-# HERO SECTION
-# ---------------------------------------------------
 
 st.markdown("""
 <div class="hero-card">
@@ -35,89 +23,34 @@ st.markdown("""
     </p>
 </div>
 """, unsafe_allow_html=True)
-with st.sidebar:
-
-    st.title("🏛️ ARCHiTool")
-
-    st.markdown("---")
-
-    st.page_link(
-        "pages/1_HOAI_Rechner.py",
-        label="🏛️ HOAI Rechner"
-    )
-
-    st.page_link(
-        "pages/2_Projekte.py",
-        label="📂 Projekte"
-    )
-
-    st.page_link(
-        "pages/3_Einstellungen.py",
-        label="⚙️ Einstellungen"
-    )
-
-    st.page_link(
-        "pages/4_Login.py",
-        label="👤 Login"
-    )
-# ---------------------------------------------------
-# USER INFO
-# ---------------------------------------------------
 
 if user:
     st.success(f"Willkommen, {user['name']}")
-
     projects = load_projects(user["id"])
     project_count = len(projects)
-
 else:
-    st.warning(
-        "Bitte einloggen, um Projekte zu speichern und zu verwalten."
-    )
-
+    st.warning("Bitte einloggen, um Projekte zu speichern und zu verwalten.")
     project_count = 0
-
-# ---------------------------------------------------
-# DASHBOARD METRICS
-# ---------------------------------------------------
 
 c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    st.metric(
-        "Gespeicherte Projekte",
-        project_count
-    )
+    st.metric("Gespeicherte Projekte", project_count)
 
 with c2:
-    st.metric(
-        "Exportformate",
-        "PDF / Word / Excel"
-    )
+    st.metric("Exportformate", "PDF / Word / Excel")
 
 with c3:
-    st.metric(
-        "HOAI Modul",
-        "Gebäude"
-    )
+    st.metric("HOAI Modul", "Gebäude")
 
 with c4:
-    st.metric(
-        "Status",
-        "Online MVP"
-    )
-
-# ---------------------------------------------------
-# QUICK ACCESS
-# ---------------------------------------------------
+    st.metric("Status", "Online MVP")
 
 st.markdown("---")
 
 st.header("🚀 Schnellzugriff")
 
-st.info(
-    "Navigation bitte über das linke Seitenmenü verwenden."
-)
+st.info("Navigation bitte links über das Seitenmenü verwenden.")
 
 st.markdown("""
 ### Verfügbare Bereiche
@@ -134,10 +67,6 @@ st.markdown("""
 - 👤 **Login**  
   Benutzerkonto verwalten
 """)
-
-# ---------------------------------------------------
-# MODULES
-# ---------------------------------------------------
 
 st.markdown("---")
 
@@ -159,10 +88,6 @@ ARCHiTool unterstützt aktuell:
 - Benutzerlogin
 - Benutzerbezogene Projektspeicherung
 """)
-
-# ---------------------------------------------------
-# ROADMAP
-# ---------------------------------------------------
 
 st.markdown("---")
 
